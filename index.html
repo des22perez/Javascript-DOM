@@ -1,0 +1,150 @@
+<!--Desiree Perez 
+    email: DESPEREZ@UAT.EDU 
+    4/21/2021
+
+
+Title: Assignment 8 Javascript DOM and Document Structure with Tables, Themes, and Mock Data-->
+
+<!DOCTYPE html>
+<html>
+<!--head-->
+
+<head>
+    <!--link style and js file-->
+    <script src="code.js"></script>
+    <script src="dataLoader-1.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <!--title-->
+    <title>
+        UAT Space Program
+    </title>
+
+</head>
+
+<body>
+
+    <!--needed for dom-->
+    <script>
+        var theTime = new Date();
+        var tempTime = new Date();
+        var time_interval = 5000;
+        var last_ideration = 0;
+        var running = true;
+        var index = 0
+        var timer;
+
+        //to get data from data loader
+        var data = getData();
+
+        function updateDisplay() {
+            theTime = new Date();
+
+            //fill in the table
+            var timeRead = data[index].time_seconds;
+            if (timeRead >= 10) {
+                //creating table with data
+                document.getElementById("data").rows["seconds"].innerHTML = dataRow("Time Elapsed", data[index].time_seconds, "seconds");
+                document.getElementById("data").rows["latitude"].innerHTML = dataRow("Latitude", data[index].latitude, " ");
+                document.getElementById("data").rows["longitude"].innerHTML = dataRow("Longitude", data[index].longitude, " ");
+                document.getElementById("data").rows["gps_altitude"].innerHTML = dataRow("GPS Altitude", data[index].gps_altitude, " ");
+                document.getElementById("data").rows["bmpSensor_alt"].innerHTML = dataRow("BMP Sensor Altitude", data[index].bmpSensor_alt, " ");
+                document.getElementById("data").rows["bmpSensor_press"].innerHTML = dataRow("BMP Sensor Pressure", data[index].bmpSensor_press, " ");
+                document.getElementById("data").rows["bmpSensor_temp"].innerHTML = dataRow("BMP Sensor Temperature", data[index].bmpSensor_temp, " ");
+                document.getElementById("data").rows["dig_sensor_temp"].innerHTML = dataRow("Digital Sensor Temperature", data[index].dig_sensor_temp, " ");
+                document.getElementById("data").rows["CSS_sensor_temp"].innerHTML = dataRow("CSS Sensor Temperature", data[index].CSS_sensor_temp, " ");
+                document.getElementById("data").rows["CSS_sensor_eCO2"].innerHTML = dataRow("CSS Sensor eCO2", data[index].CSS_sensor_eCO2, " ");
+                document.getElementById("data").rows["UV"].innerHTML = dataRow("UV", data[index].UV, " ");
+                document.getElementById("data").rows["accel_x"].innerHTML = dataRow("Accel X", data[index].accel_x, " ");
+                document.getElementById("data").rows["accel_y"].innerHTML = dataRow("Accel Y", data[index].accel_y, " ");
+                document.getElementById("data").rows["accel_z"].innerHTML = dataRow("Accel Z", data[index].accel_z, " ");
+                document.getElementById("data").rows["mag_x"].innerHTML = dataRow("Magnetic X ", data[index].mag_x, " ");
+                document.getElementById("data").rows["mag_y"].innerHTML = dataRow("Magnetic Y ", data[index].mag_y, " ");
+                document.getElementById("data").rows["mag_z"].innerHTML = dataRow("Magnetic Z ", data[index].mag_z, " ");
+                document.getElementById("data").rows["gyro_x"].innerHTML = dataRow("Gyro X", data[index].gyro_x, " ");
+                document.getElementById("data").rows["gyro_y"].innerHTML = dataRow("Gyro Y", data[index].gyro_y, " ");
+                document.getElementById("data").rows["gyro_z"].innerHTML = dataRow("Gyro Z", data[index].gyro_z, " ");
+
+            }
+            if (index < 500) {
+                index++;
+            } else{
+                index = 0;
+            }
+        }
+
+
+    </script>
+    <!--A table to put logo and title on same line-->
+    <table>
+        <!--table data-->
+        <td><img src="UATspaceLogo.jpg"></td>
+        <td style="font-family: fantasy; font-weight: bold; font-size: xx-large;">
+            <h1></h1>UAT Space Program</h1>
+        </td>
+    </table>
+    <!--give the table a border, a width, and a class style-->
+    <table border="2" id="data" width="40%" class="mainTable">
+        <!--make the colums equal-->
+        <col style="width: 20%">
+        <col style="width: 20%">
+        <!--table header-->
+        <thead>
+            <!--give first table rows a font and align them on the left-->
+            <tr style="font-family: fantasy;">
+                <th align="left">Data Type</th>
+                <th align="left">Reading</th>
+            </tr>
+        </thead>
+        <!--table body the main part of the table-->
+        <tbody>
+            <tr id="seconds"></tr>
+            <tr id="latitude"></tr>
+            <tr id="longitude"></tr>
+            <tr id="gps_altitude"></tr>
+            <tr id="bmpSensor_alt"></tr>
+            <tr id="bmpSensor_press"></tr>
+            <tr id="bmpSensor_temp"></tr>
+            <tr id="dig_sensor_temp"></tr>
+            <tr id="CSS_sensor_temp"></tr>
+            <tr id="CSS_sensor_eCO2"></tr>
+            <tr id="UV"></tr>
+            <tr id="accel_x"></tr>
+            <tr id="accel_y"></tr>
+            <tr id="accel_z"></tr>
+            <tr id="mag_x"></tr>
+            <tr id="mag_y"></tr>
+            <tr id="mag_z"></tr>
+            <tr id="gyro_x"></tr>
+            <tr id="gyro_y"></tr>
+            <tr id="gyro_z"></tr>
+        </tbody>
+    </table>
+
+    <br>
+    <br>
+    <!--creating start and stop and button class-->
+    <button id="startButton" class="strtButton" onclick="start();">Start</button>
+    <button id="stopButton" class="stpButton" onclick="stop();">Stop</button>
+    <br>
+    <br>
+    <!--create buttons for playing sound-->
+    <button class="soundButton" onclick="playCode();">Play Sound</button>
+    <br>
+    <!--display craps results-->
+    <h3 id="crapsResults">Results of the Craps Round</h3>
+    <br>
+    <!--display die results-->
+    Die1 is:<div id="die1Res">needs to be rolled</div><br>
+    Die2 is:<div id="die2Res">needs to be rolled</div><br>
+    Sum of Die1+Die2 is:<div id="sumRes">needs to be rolled</div><br>
+    <!--create button to play craps-->
+    <button class="lgButton" onclick="playCraps();">Play Craps Here!!</button>
+    <br>
+    <br>
+    <br>
+    <div id="sandboxDisplay">Sandbox Display</div>
+    <br>
+    <button class="sandButton" onclick="runSandbox();">Try it!</button>
+</body>
+
+</html>
